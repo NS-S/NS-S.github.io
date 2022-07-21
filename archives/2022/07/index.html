@@ -276,6 +276,29 @@
 
 
 
+  
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+<script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+        el: '.vcomment',
+        notify: notify,
+        verify: verify,
+        appId: "Ji5y9HTOlb2QGDO0XFlWXNRy-gzGzoHsz",
+        appKey: "6VqGye1352LX381YQDTOaiXs",
+        placeholder: "El Psy Congroo",
+        pageSize:'10',
+        avatar:'mm',
+        lang:'zh-cn'
+    });
+</script>
+
   </div>
 </body>
 </html>
