@@ -75,6 +75,80 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-数据结构学习笔记-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Tech/Algorithm/bf2cc436668b.html" class="article-date">
+  <time class="dt-published" datetime="2022-07-30T08:51:43.000Z" itemprop="datePublished">2022-07-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tech/">Tech</a>►<a class="article-category-link" href="/categories/Tech/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/Tech/Algorithm/bf2cc436668b.html">数据结构学习笔记#2 栈与队列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>之所以要引入这样的数据结构，是为了简化问题，将思考范围减小，更加聚焦于问题核心。</p>
+<h2 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈 Stack"></a>栈 Stack</h2><p>LIFO，Last In First Out</p>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><p>由于实现方式没有特别之处，所以不再赘述。<br>栈的顺序存储和链式存储，主要区别有二：</p>
+<ul>
+<li>顺序存储有数量限制，而链式存储没有</li>
+<li>链式存储有空间时间浪费（申请空间所需时间），而顺序存储没有</li>
+</ul>
+<p>依据元素数量可控&#x2F;不确定，来确定实现方式。</p>
+<h4 id="顺序存储中，两栈共享空间"><a href="#顺序存储中，两栈共享空间" class="headerlink" title="顺序存储中，两栈共享空间"></a>顺序存储中，两栈共享空间</h4><p>如果有两个栈有相反的空间需求，那么可以把他们用同一个数组表示：一个从前往后增长，一个从后往前增长。<br>栈数据结构需要保存两个子栈的顶指针（下标），而各种栈操作则需要加一个栈的编号的参数（1还是2）。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h4 id="实现函数调用"><a href="#实现函数调用" class="headerlink" title="实现函数调用"></a>实现函数调用</h4><p>系统用栈来保存函数上下文，实现函数之间的调用关系(后进的函数,最先被弹出)。</p>
+<h4 id="四则运算表达式求值-逆波兰表示法"><a href="#四则运算表达式求值-逆波兰表示法" class="headerlink" title="四则运算表达式求值 - 逆波兰表示法"></a>四则运算表达式求值 - 逆波兰表示法</h4><p>在逆波兰表示法中，无论是“把中缀表达式转化成后缀表达式”，还是“计算后缀表达式”，都需要用栈作为工具。<br>我写了一个简单的表达式转换程序。（仅支持个位数加减法）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回符号优先级，若非运算符则返回0</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">unsigned</span> <span class="type">short</span> <span class="title">prior</span><span class="params">(<span class="type">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (c)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将中缀表达式a转化为后缀表达式，并存储在c中</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">convert_expression</span><span class="params">(string&amp; a, string&amp; c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; b;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a.<span class="built_in">length</span>(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 数字直接输出</span></span><br><span class="line">        <span class="keyword">if</span> ((<span class="string">&#x27;0&#x27;</span>&lt;=a[i] &amp;&amp; a[i]&lt;=<span class="string">&#x27;9&#x27;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            c.<span class="built_in">push_back</span>(a[i]);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 左括号直接压栈</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a[i] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            b.<span class="built_in">push</span>(a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 右扩号则循环输出直到左括号</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a[i]==<span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (b.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                c.<span class="built_in">push_back</span>(b.<span class="built_in">top</span>());</span><br><span class="line">                b.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            b.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理符号优先级</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">prior</span>(a[i]))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 当前符号优先级 &lt;= 栈顶符号优先级：栈顶符号出栈</span></span><br><span class="line">            <span class="keyword">while</span> (!b.<span class="built_in">empty</span>() &amp;&amp; <span class="built_in">prior</span>(a[i]) &lt;= <span class="built_in">prior</span>(b.<span class="built_in">top</span>()))</span><br><span class="line">            &#123;</span><br><span class="line">                c.<span class="built_in">push_back</span>(b.<span class="built_in">top</span>());</span><br><span class="line">                b.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            b.<span class="built_in">push</span>(a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理非法字符</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;Please check your expression.&quot;</span> &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 输出栈内剩余字符</span></span><br><span class="line">    <span class="keyword">while</span> (!b.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        c.<span class="built_in">push_back</span>(b.<span class="built_in">top</span>());</span><br><span class="line">        b.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string expression;  cin &gt;&gt; expression;</span><br><span class="line">    string postfix_expression;</span><br><span class="line">    <span class="built_in">convert_expression</span>(expression, postfix_expression);</span><br><span class="line">    cout &lt;&lt; postfix_expression &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="队列-Queue"><a href="#队列-Queue" class="headerlink" title="队列 Queue"></a>队列 Queue</h2><p>FIFO, First In First Out</p>
+<h3 id="实现方式-1"><a href="#实现方式-1" class="headerlink" title="实现方式"></a>实现方式</h3><p>队列长度确定用顺序存储（循环队列），不确定用链式存储。</p>
+<h4 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h4><p>如果用普通的顺序存储，可以发现要么出队列的复杂度很高（前面走一个，后面全要挪），要么会出现“假溢出”现象（前面空的，后面又不挪）。</p>
+<p>所以有了<strong>循环队列</strong>，用两个“指针”<strong>front</strong>和<strong>rear</strong>，分别指向<strong>首元素</strong>和<strong>末元素的下一位</strong>。（其实只是下标而已）</p>
+<p>判断队列为空，就用front=&#x3D;rear；<br>判断队列已满，有两种实现方法：</p>
+<ol>
+<li>采用一个额外的flag变量区分空与满。</li>
+<li>定义满为还差一个就满了 <code>(rear + 1) % MAXSIZE == front</code></li>
+</ol>
+<p>计算队列长度，用 <code>(rear - front + MAXSIZE) % MAXSIZE</code></p>
+<p>（可以发现循环队列很多操作都会%MAXSIZE）</p>
+<h4 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h4><p>为了操作方便，使用一个<strong>队头指针</strong>和一个<strong>队尾指针</strong>，分别指向<del>没用的</del><strong>头节点</strong>和<strong>尾节点</strong>。<br>就是非常普通的链表操作所以不赘述了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://ns-s.github.io/Tech/Algorithm/bf2cc436668b.html" data-id="cl67nojdd00003syl73srg4x4" data-title="数据结构学习笔记#2 栈与队列" class="article-share-link">Share</a>
+      
+      
+        <a href="/Tech/Algorithm/bf2cc436668b.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/Tech/Algorithm/bf2cc436668b.html" itemprop="commentCount"></span>
+          Comments
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-数据结构学习笔记-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/Tech/Algorithm/366dfafad5e2.html" class="article-date">
@@ -631,63 +705,6 @@
 
 
   
-    <article id="post-一星七-0" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/Daily/%E5%91%A8%E8%AE%B0/0a75081c77d8.html" class="article-date">
-  <time class="dt-published" datetime="2022-07-17T01:27:38.000Z" itemprop="datePublished">2022-07-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Daily/">Daily</a>►<a class="article-category-link" href="/categories/Daily/%E5%91%A8%E8%AE%B0/">周记</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/Daily/%E5%91%A8%E8%AE%B0/0a75081c77d8.html">一星七#0</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>准备在博客上简单记一下自己每周都干了什么，每周日考验一下自己的记忆力，看看还记得多少（？）</p>
-<p>这周出了分流结果，分到信安了，然后找到了作息（主要是睡觉时间）和日常习惯都类似的新室友*2。其实本来想找找有没有打音游或者技术上很强能带带我的老司机的，但是老司机似乎一般都睡得比较晚（bushi），而我想养生的，活不到三百年也想活到22世纪哈哈……</p>
-<p>这周学习了<strong>BTC的P2PKH脚本</strong>（P2SH啥的有点小复杂，用到再看），还有<strong>Solidity的基本语法</strong>（一种用于开发智能合约的语言）。solidity和C&#x2F;C++有些地方真的很像，就是每个变量都要声明一下public&#x2F;private让我很不爽，还有每个函数都要敲一下返回类型也令我很不爽（实现多个返回值的代价啊）。还有简单地接触了一下<strong>ERC20和ERC721标准</strong>，也就是同质化和非同质化货币的两个协议。<br>Solidity语言可以在 <a target="_blank" rel="noopener" href="https://remix.ethereum.org/">Remix IDE</a> 在线编译、测试、发布。里面的插件 <code>LEARNETH</code> 是一个在线互动式Solidity教学，做得非常好，想了解的可以去试试（需要科学上网）。</p>
-<p>这周学习了基础的<strong>ROP</strong>，比如<strong>gadget</strong>，<strong>ret2libc</strong>，<strong>ret2csu</strong>啥的，目前还在做pwn.college的babyrop challenge。<br>说实话，我怎么觉得这些baby一点也不baby，Yan你太卑鄙啦！！<br>Pwn.college的wp我都记录在本地的Obsidian库里了，因为这毕竟是人家大学的一门课，所以直接把人家作业答案贴到网上十分不好（不过我写的一坨史也不算优雅的参考答案hhh）。如果想交流一下，欢迎联系我的邮箱<a href="mailto:&#67;&#x61;&#109;&#101;&#x75;&#x64;&#105;&#x73;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#67;&#x61;&#109;&#101;&#x75;&#x64;&#105;&#x73;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a>。</p>
-<p>还有就是又重新把博客部署起来了（这是第三次）。这次不会弃坑了，以后我就一直用下去了。这次我学聪明了，学会看hexo官方文档了，于是视野一下子广阔了起来（至少知道了<code>_config.yml</code>可以改哪些配置，以及<code>scaffolds</code>里可以配置自己的模板等）。以及，用VSCode来编辑博客真的非常方便，只要在设置里加一行：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;editor.wordSeparators&quot;</span><span class="punctuation">:</span> <span class="string">&quot;`~!@#$%^&amp;*()-=+[&#123;]&#125;\\|;:&#x27;\&quot;,.&lt;&gt;/?，。；、：“”！？《》【】……￥&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
-
-<p>就可以在写中文的时候也用ctrl移动了（参考：<a target="_blank" rel="noopener" href="http://wind13.github.io/2018/08/27/vscode-vi-segment-chinese-punctuation/">在 vscode 的 vi 模式下，按中文标点移动光标的方法</a>）。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://ns-s.github.io/Daily/%E5%91%A8%E8%AE%B0/0a75081c77d8.html" data-id="cl5wlzhps00000wyldstm1jih" data-title="一星七#0" class="article-share-link">Share</a>
-      
-      
-        <a href="/Daily/%E5%91%A8%E8%AE%B0/0a75081c77d8.html#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/Daily/%E5%91%A8%E8%AE%B0/0a75081c77d8.html" itemprop="commentCount"></span>
-          Comments
-        </a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%80%E6%98%9F%E4%B8%83/" rel="tag">一星七</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -723,7 +740,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/pwncollege/" style="font-size: 20px;">pwncollege</a> <a href="/tags/%E4%B8%80%E6%98%9F%E4%B8%83/" style="font-size: 15px;">一星七</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 15px;">数据结构与算法</a>
+      <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/pwncollege/" style="font-size: 20px;">pwncollege</a> <a href="/tags/%E4%B8%80%E6%98%9F%E4%B8%83/" style="font-size: 15px;">一星七</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 20px;">数据结构与算法</a>
     </div>
   </div>
 
@@ -745,6 +762,10 @@
       <ul>
         
           <li>
+            <a href="/Tech/Algorithm/bf2cc436668b.html">数据结构学习笔记#2 栈与队列</a>
+          </li>
+        
+          <li>
             <a href="/Tech/Algorithm/366dfafad5e2.html">数据结构学习笔记#1 线性表</a>
           </li>
         
@@ -758,10 +779,6 @@
         
           <li>
             <a href="/Tech/pwncollege/f7e55fe7f8ad.html">pwn.college-toddlerone writeup</a>
-          </li>
-        
-          <li>
-            <a href="/Tech/pwncollege/0defcc6ad12d.html">pwn.college-babymem writeup</a>
           </li>
         
       </ul>
